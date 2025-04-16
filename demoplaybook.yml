@@ -1,0 +1,19 @@
+- name: Write a playbook to perform the following tasks
+  hosts: all
+  become: yes
+  tasks:
+    - name: Create tomcat9 directory
+      file:
+        path: "/home/azureuser/tomcat9"
+        state: directory
+        mode: '0755'
+
+    - name: Download Tomcat using wget
+      shell: |
+        cd /home/azureuser/tomcat9
+        wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.102/bin/apache-tomcat-9.0.102.tar.gz
+    - name: unarchive the downloaded tomcat
+      unarchive:
+        src: "/home/azureuser/tomcat9/apache-tomcat-9.0.102.tar.gz"
+        dest: "/home/azureuser/tomcat9"
+        remote_src: yes
